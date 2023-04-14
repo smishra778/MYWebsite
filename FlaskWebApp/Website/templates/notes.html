@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card my-5">
+        <div class="card-body">
+          <h5 class="card-title mb-4">My Notes</h5>
+
+            <ul class="list-group list-group-flush" id="notes">
+              {% for note in user.notes %}
+
+                <li class="list-group-item">{{ note.data }}
+                  <button type ="button" class="close" onclick="deleteNote({{note.id}})">
+                    <span aria-hidden="true">&times;</span></button>
+                </li>
+
+
+              {% endfor %}
+            </ul>
+
+
+          <hr>
+          <p class="card-text">Create a new note:</p>
+          <form method="POST">
+            <textarea name="note" id="note" class="form-control"></textarea>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Save Note</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

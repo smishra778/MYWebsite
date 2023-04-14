@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Signup Form -->
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-two-thirds-tablet is-half-desktop">
+        <div class="box">
+          <h1 class="title has-text-centered">Create an Account</h1>
+          <form action="#" method="POST">
+            <div class="field">
+              <label class="label">Full Name</label>
+              <div class="control has-icons-left">
+                <input class="input is-medium" type="text" placeholder="Enter your full name" name="full_name" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left">
+                <input class="input is-medium" type="email" placeholder="Enter your email address" name="email" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control has-icons-left">
+                <input class="input is-medium" type="password" placeholder="Enter a password" name="password" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" name="terms_and_conditions" required>
+                <span class="has-text-grey">I agree to the <a href="#" class="has-text-primary">terms and conditions</a></span>
+              </label>
+            </div>
+
+            <div class="field has-text-centered">
+              <button type="submit" class="button is-success is-rounded is-medium">Sign Up</button>
+            </div>
+
+            <div class="field has-text-centered">
+              <span class="has-text-grey-dark">Already have an account?</span>
+              <a href="#" class="btn has-text-primary">Log In</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Sudoku Solver{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h1 class="text-center mb-4">Sudoku Solver</h1>
+
+      <form id="sudoku-form" style="margin-bottom: 30px;">
+        <div class="form-group">
+          <label for="input-type">Select Input Type:</label>
+          <select class="form-control" id="input-type" name="input-type">
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+          </select>
+        </div>
+        <div class="form-group" id="text-input-group">
+          <table class="table table-bordered">
+            {% for i in range(9) %}
+            <tr>
+              {% for j in range(9) %}
+              <td>
+                <input type="number" class="form-control text-center sudoku-input" id="cell-{{ i }}-{{ j }}" name="cell-{{ i }}-{{ j }}" min="1" max="9">
+              </td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="form-group" id="image-input-group" style="display: none;">
+          <label for="image-input">Upload an image of a Sudoku puzzle:</label>
+          <input type="file" class="form-control-file" id="image-input" name="image-input">
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Solve</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+      </form>
+
+
+      <div class="mt-4">
+        <h2 class="text-center mb-4">Solved Puzzle</h2>
+        <table class="table table-bordered">
+          {% for i in range(9) %}
+          <tr>
+            {% for j in range(9) %}
+            <td>
+              <input type="number" class="form-control text-center sudoku-input" id="cell-{{ i }}-{{ j }}-solution" name="cell-{{ i }}-{{ j }}-solution" readonly>
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('sudoku-form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch('/sudoku-solve', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update solved puzzle
+        for (let i = 0; i < 9; i++) {
+          for (let j = 0; j < 9; j++) {
+            const solutionInput = document.getElementById('cell-' + i + '-' + j + '-solution');
+            solutionInput.value = data['solution'][i][j];
+          }
+        }
+      })
+      .catch(error => {
+        console.error('An error occurred while solving the puzzle:', error);
+        alert('An error occurred while solving the puzzle: ' + error);
+      });
+    });
+  </script>
+
+  <style>
+    .sudoku-input {
+      font-size: 1.5rem;
+      padding: 0.75rem;
+    }
+  </style>
+{% endblock %}
