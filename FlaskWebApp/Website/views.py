@@ -1,6 +1,8 @@
 import json
+import os
+import subprocess
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect, url_for
 from flask import render_template, flash, request
 from flask_login import login_required, current_user
 
@@ -11,6 +13,14 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/')
+def welcome():
+    if current_user.is_authenticated > 0:
+        return render_template("home.html", user=current_user)
+    else:
+        return redirect(url_for('auth.login'))
+
+
+@views.route('/home')
 @login_required
 def home():
     return render_template("home.html", user=current_user)
@@ -82,3 +92,9 @@ def sudoku():
 
     # If it's a GET request, just render the template
     return render_template('sudoku.html', user=current_user, input_values=input_values)
+
+
+@views.route('/spaceinvader', methods=['POST', 'GET'])
+def run_space_invader():
+    subprocess.Popen(r"C:\Users\shubh\PycharmProjects\FlaskWebApp\Website\Space Invader\exe.win32-3.8\main.exe")
+    return redirect(url_for('views.home'))
