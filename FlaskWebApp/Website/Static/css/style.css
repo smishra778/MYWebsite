@@ -7,7 +7,7 @@ font-family: "Open Sans", sans-serif;
 :root {
 --primary-color: #4e4cb8;
 --secondary-color: #f4f4f4;
---accent-color: #ff9b00;
+--accent-color: #0000ff;
 }
 
 /* Use consistent spacing */
@@ -172,6 +172,19 @@ color: var(--secondary-color);
   background-color: #e8e8e8;
 }
 
+/* Navbar link hover effect */
+.navbar-nav li a:hover {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+/* Navbar transition effect */
+.navbar {
+  transition: all 0.5s ease;
+}
+/* Navbar collapse animation */
+.navbar-collapse {
+  transition: height 0.5s ease;
+}
 
 /* Add contrast to navigation menu */
 nav {
